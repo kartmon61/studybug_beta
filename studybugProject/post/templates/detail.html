@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+{% block layoutblock %}
+<section id="detail">
+ 
+    <a href="#" class="sel_btn">
+        <div>유통관리사</div>
+        <img class="right" src="/static/img/selectbutton.png">
+    </a>
+    <ul class="sel_wrap">
+        <li class="sel_li">유통관리사</li> 
+        <li class="sel_li">cpa</li> 
+        <li class="sel_li">정보처리기사</li> 
+        <li class="sel_li">물류관리사</li> 
+    </ul>
+    <div class="btn center">Save Filter</div>
+
+    <article>  
+            <input type="hidden" value="{{comm_cnt}}" id="comm_cnt"> 
+            
+            <li class="reviewList">  
+                <div>
+                    <img src="/static/img/pro.png" class="user-img"> 
+                        <div>
+                            <input type="hidden" class="rate" value="{{posts.rate}}" no="{{r.id}}"> <!--별점 갯수 적어놨다가 자바스크립트로 처리-->
+                        </div>
+                        <h3>{{r.author}}</h3>
+                        <p class="right red status" no="{{posts.id}}"></p>
+                        <h1>{{r.license_on.name}}</h1>
+                        <p class="small"><img class="icon left" src="/static/img/calender.png">{{posts.created_at| date:"Y-m-d-f" }} </p>
+                        <div class='review'>{{posts.body}}</div>
+                         
+                         
+                        <div class="r_btn" no="  {{forloop.counter}}  "> 
+                                답글     {{forloop.counter}}
+                        </div>           
+                      
+                        </div>
+                        </li> 
+    
+        </ul>
+    </article>
+
+ 
+    {% if posts.author == user.username  %}
+    <a href="/post/edit/{{posts.id}}" class="btn purple">수정</a>
+    <a href="/post/delete/{{posts.id}}" class="btn delete purple">삭제</a>
+    {%endif%} 
+
+
+{% if not user.is_authenticated %}    
+    <script>
+        $("textarea").attr("placeholder","Only members can write comment");
+        $("input[type='submit']").addClass("d");
+        $("#listBoard_detail .input_").prop("disabled",true);   
+        $("li>div").hide();
+    </script>
+{%endif%}
+
+    {% for comment in comment %}
+    <div class="comment">
+        <ul>
+            <li><img class="comm_a" src="/static/img/comment.png" alt=""></li>
+            <li><img src="/static/img/pro.png"  class="user-img" alt=""></li>
+            <li><b>{{comment.author}}</b></li>
+            <li class="small">{{comment.created_at}}</li>
+        </ul>   
+        <div class="comm_body">
+            {{comment.text}}
+            {% if comment.author == user.username  %}
+            <a href="commentdelete/{{posts.id}}/{{comment.id}}" class="delete"><img class="comm_d" src="/static/img/delete.png"></a>
+            {%endif%}
+        </div>
+    </div>
+
+    {% empty %}
+    <p>댓글이 없습니다.</p>
+    {% endfor %} 
+    
+    <form action="commentcreate/{{posts.id}}" method="POST">
+        {% csrf_token %} 
+        <ul class="comm_write">
+            <li>
+                <textarea name="comment_content" 
+                id="comment_content" 
+                class="center inp"
+                cols="30" rows="5" 
+                placeholder="write your comment"
+                class="input_"></textarea>
+            </li>
+            <li>
+                <input type="submit" class="red" value="confirm">
+            </li>
+            <li>
+                <input type="hidden" value="{{user.username}}" name="comm_nm">
+            </li>
+        </ul>  
+    </form> 
+    <a href="/post/">돌아가기
+
+</section>
+{% endblock %}

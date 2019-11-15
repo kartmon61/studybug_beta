@@ -1,0 +1,19 @@
+{% extends 'nh_layout.html' %}
+{% block layoutblock %}
+<style>
+    *{         
+    }
+</style>
+<script>
+    //2초 뒤 로그인 화면으로 이동   
+    setTimeout(function(){
+        location.href="login"
+    },2000);  
+
+</script>
+ 
+    <div id="loading">
+        <img class="fade center" src="/static/img/logo.png" alt="">   
+    </div>
+    
+{% endblock %}

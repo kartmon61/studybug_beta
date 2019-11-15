@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block layoutblock %}
+<script>
+    $(function(){
+       
+
+        $(".cate").click(function(){
+            console.log($(this).attr("no")); 
+            location.href="../post/"+$(this).attr("no");
+        })
+
+
+    });
+
+</script>
+<section id="main">
+    <nav>
+        <!-- 검색 -->
+        <form action="{%url 'list'%}" method="GET">
+            <input class="inp center" type="text" id="search_keyword" name="search_keyword">
+            <img class="icon right" src="/static/img/search.png">
+        </form> 
+        
+        <!-- 메뉴 -->
+        <div> 
+            <ul>
+                <li class="cate" no="0"><a href="#" >경영</a></li>
+                <li class="cate" no="1"><a href="#" >물류</a></li>
+                <li class="cate" no="2"><a href="#" >화학</a></li> <br/>
+                <li class="cate" no="3"><a href="#" >건축</a></li>
+                <li class="cate" no="4"><a href="#">전기</a></li>
+                <li class="cate" no="5"><a href="#" >컴퓨터</a></li> 
+            </ul>     
+        </div>
+    </nav>
+    <article>
+        <img src="/static/img/recent.png" class="title_img">
+        <ul>            
+            {% if rlist %}
+            {% for r in rlist %}
+            <li class="reviewList">
+                <div>
+                    <img src="/static/img/pro.png" class="user-img">
+                    <a href="{% url 'detail' r.id %}">
+                        <div>
+                            <input type="hidden" class="rate" value="{{r.rate}}" no="{{r.id}}"> <!--별점 갯수 적어놨다가 자바스크립트로 처리-->
+                        </div>
+                        <h3>{{r.author}}</h3>
+                        <p class="right red status" no="{{r.id}}"></p>
+                        <h1>{{r.license_on.name}}</h1>
+                        <p class="small"><img class="icon left" src="/static/img/calender.png">{{r.created_at}}</p>
+                        <div class='review'>{{r.body}}</div>
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+            {% endif %}
+            <!--
+            <script>
+                for(i=0;i<5;i++){
+                    document.write("<a href='#'>"+
+                                   "<li  class='reviewList'>"+
+                                   "<div>★★★★★</div>"+
+                                   "<div  class='review'>"+
+                                   "sample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample stringsample string"+
+                                   "</div></li></a>");
+                }
+            </script>
+            -->
+        </ul>
+    </article>
+
+    <a href="../post">리뷰 작성 Test</a>
+</section>
+{% endblock %}

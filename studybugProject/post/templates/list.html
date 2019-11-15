@@ -1,0 +1,133 @@
+{% extends 'layout.html' %}
+{% block layoutblock %}
+<script>
+
+    $(function(){
+        var comm_cnt = $("#comm_cnt").val().split(",");
+        var comm_cnt_v = $("#comm_cnt").val().substring(1,$("#comm_cnt").val().length).split(",");
+        for(i=0;i<comm_cnt_v.length;i++){
+            console.log($("div[no='"+i+"']"));
+            $("div[no='"+i+1+"']").html(comm_cnt_v[i]);
+        }
+    });
+
+</script>
+
+<section id="list">
+    <h1 class="menu_title">물류</h1>
+    <a href="#" class="sel_btn">
+        <div>유통관리사</div>
+        <img class="right" src="/static/img/selectbutton.png">
+    </a>
+    <ul class="sel_wrap">
+        <li class="sel_li">유통관리사</li> 
+        <li class="sel_li">cpa</li> 
+        <li class="sel_li">정보처리기사</li> 
+        <li class="sel_li">물류관리사</li> 
+    </ul>
+    <div class="btn center">Save Filter</div>
+    <article> 
+        <ul>            
+            {% if page_posts %}
+            <input type="hidden" value="{{comm_cnt}}" id="comm_cnt">
+            {% for r in page_posts%} 
+            
+            <li class="reviewList">  
+                <div>
+                    <img src="/static/img/pro.png" class="user-img">
+                    <a href="{% url 'detail' r.id %}">
+                        <div>
+                            <input type="hidden" class="rate" value="{{r.rate}}" no="{{r.id}}"> <!--별점 갯수 적어놨다가 자바스크립트로 처리-->
+                        </div>
+                        <h3>{{r.author}}</h3>
+                        <p class="right red status" no="{{r.id}}"></p>
+                        <h1>{{r.license_on.name}}</h1>
+                        <p class="small"><img class="icon left" src="/static/img/calender.png">{{r.created_at| date:"Y-m-d-f" }} </p>
+                        <div class='review'>{{r.body}}</div>
+                         
+                        
+                        </a>
+                        <div class="r_btn" no="  {{forloop.counter}}  "> 
+                                답글     {{forloop.counter}}
+                        </div>           
+                      
+                        </div>
+                        </li>
+            {% endfor %}
+            
+            {% endif %}
+    
+        </ul>
+    </article>
+ 
+<!--
+{%if page_posts %}
+{% for post in page_posts %}
+            
+    <h3>{{post.license_on.name}}</h3>
+    
+    <h4>작성자 {{post.author}}</h4>
+    <h4>{{post.created_at | date:"Y-m-d-f" }} </h4>
+    {% if post.postingcomment_set.count != 0 %}
+       <h5>{{post.postingcomment_set.count}}</h5>
+    {%endif%}
+    <a href="/post/show/{{post.id}}">자세히 보기</a>                 
+    
+    {% endfor %}
+    -->
+{%else%}
+    <p>글이 없습니다.</p>
+{%endif%}
+
+    <ul class="paging">
+        {%if page_posts.has_previous%}
+          <li><a href="?page={{page_posts.previous_page_number}}"><b>&lt;</b></a></li>
+        {%endif%}
+        {%for i in page_posts.paginator.page_range%}
+          {% if i == page_posts.number%}
+          <li><a href="?page={{page_posts.number}}" class="page_active">{{i}}</a></li>
+          {%else%}
+          <li><a href="?page={{page_posts.number}}">{{i}}</a></li>
+          {%endif%}
+       {%endfor%}
+
+       {%if page_posts.has_next%}
+       <li><a href="?page={{page_posts.next_page_number}}"><b>&gt;</b></a></li> 
+       {%endif%} 
+    </ul> 
+</section>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <body>
+    <a href="{% url 'new' %}">추가</a>
+    <br>
+
+    {% for post in comm_list %}
+        <h2>{{post.license_on.name}}</h2>
+        <h5>{{post.created_at}}</h5>
+        <h5>별점 - {{post.rate}}</h5>
+        <p>내용 - {{post.body}}</p>
+        <a href="{% url 'detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+        <a href = "{% url 'detail' post.id %}" >자세히 보기</a>
+        <a href = "{% url 'change' post.id %}" >수정</a>
+        <a href = "{% url 'del' post.id %}" >삭제</a>
+        <hr>
+    {% endfor %}
+</body> -->

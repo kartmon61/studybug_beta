@@ -1,0 +1,63 @@
+{% extends 'nh_layout.html' %}
+{% block layoutblock %}
+
+<script>
+
+    //sign_in , sign_up form toggle
+    function toggle(e){
+        f = document.forms;
+        s_id = e.getAttribute("status");
+        Array.prototype.forEach.call(f, child => { 
+            if(child.getAttribute("id") == s_id) child.style.display="block";
+            else child.style.display="none";
+        }); 
+    }
+</script>
+<style>
+     @media (max-width: 610px) {    
+        body{
+            overflow-y:hidden;
+        }
+    }
+</style>
+<section id="login"> 
+        {% load socialaccount %}
+        {% providers_media_js %}
+        <img class="center logo" src="/static/img/logo.png" alt="logo">   
+        {% if user.is_authenticated %}
+        현재 로그인되어 있습니다.<br>
+        <a href="../main/">{{user.username}}</a><br><br>
+        <a href="/accounts/logout">로그아웃</a><br>
+        {% else %}
+        
+        <!--회원가입 폼-->
+        <h1>SignUp</h1>
+        <b class="blue underline right">Forgot?</b>
+        <p class="small">please sign to continue.</p>
+        <form action="{%url 'signup'%}" method="POST" id="sign_up">
+            {% csrf_token %}
+            <input id="user_email" name="email" type="text" class="inp" placeholder="User name or email" required>
+            <input id="user_password" name="password1" type="password" placeholder="Password"class="inp" required>
+            <input id="user_password2" name="password2" type="password" placeholder="Password confirm"class="inp" required>
+            <input type="submit" value="회원가입" class="btn inp">
+            
+            <a href="#" status="sign_in" onclick="toggle(this)">Already a member? <b class="blue underline">Login</b></a>
+            <a href="{% provider_login_url 'google' %}">
+                <img class="center" src="/static/img/btn/g_login.png">
+            <a href="{% provider_login_url 'kakao' %}">
+                <img class="center" src="/static/img/btn/k_login.png">
+            </a> 
+        </form>
+        
+        <!--로그인 폼-->
+        <form action="{% url 'login' %}" method="POST" id="sign_in">
+                {% csrf_token %}
+                <input id="login_email" name="username" type="text" class="inp" placeholder="User name or email" required>
+                <input id="login_password" name="password" type="password" class="inp"  placeholder="Password" required>
+                <input type="submit" value="로그인" class="btn inp">
+                <a href="#" status="sign_up" onclick="toggle(this)" >회원이 아니세요?</a>
+            </form>
+        {% endif %}
+        <img src="/static/img/leafdown.png" class="bottom_bg">
+</section>
+{% endblock %} 

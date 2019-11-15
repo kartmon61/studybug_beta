@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    <!-- 1. Link to jQuery (1.8 or later), -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> <!-- 33 KB --> 
+    <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css?{% now 'U' %}"/>
+    <script src="/static/js/main.js?{% now 'U' %}"></script>
+    <title>License bug</title>
+    <script>
+       
+        $(function(){  
+            //로그인 팝업 
+            $(".popup_open").click(function(){ 
+                var window = $(this).attr("pop_nm");
+                $(".bg").show();
+                $(".pop_up[pop_nm='"+window+"']").show(); 
+            }); 
+            
+            $(".close").click(function(){ 
+                $(".bg").hide();
+                $(".pop_up").hide();
+            });
+
+            
+            var locate = location.pathname;   
+            if(locate.indexOf("new")>0||locate.indexOf("edit")>0){
+                    $(".float_btn").hide();
+            }else{
+                $(".float_btn").click(function(){
+                 location.href="../post/new/";
+                });
+            }
+            
+            var rlist = document.getElementsByClassName("rate");
+            for(i of rlist){
+                var r = i.getAttribute("value");
+                var n = i.getAttribute("no"); 
+                var difficulty = ["엄청 쉬웠어요","쉬웠어요","보통이에요","어려웠어요","매우어려웠어요"];
+                $("p[no='"+n+"']").html(difficulty[r-1]);
+            } 
+            
+            $(".sel_btn").click(function(){
+                $(".sel_wrap").toggle();
+            });
+            $(".sel_li").click(function(){
+                $(".sel_btn>div").text($(this).text());
+                $(".sel_wrap").toggle();
+            });
+        });
+
+       
+    </script>
+</head>
+<body>
+
+    <div class="bg"></div> 
+    <header>
+        <a href="/main"><img class="center logo" src="/static/img/logo.png"></a>
+        <a href="#" class="left" onclick="_back()" ><img src="/static/img/back.png"></a>
+        <a href="#" class="right"><img src="/static/img/menu.png"></a>
+    </header>
+    {% block layoutblock %}
+    {% endblock %}  
+    <img class="float_btn" src="/static/img/write.png">
+    <footer>
+        <img class="center bottom" src="/static/img/create.png">
+    </footer> 
+</body>
+</html>

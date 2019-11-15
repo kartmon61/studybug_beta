@@ -1,0 +1,64 @@
+{% extends 'layout.html'%}
+{% block layoutblock%}
+
+<script>
+    function point_cnt(){
+
+    }
+
+    function list_select(e){
+        $(".popup_open").val($(e).text());
+        pu_close();
+    }
+     
+</script>
+ <section id="review_new">
+     <form action="" method="POST">
+        {% csrf_token %}
+        <!-- 라이센스 선택 -->
+        
+        <input type="text" class="inp popup_open" pop_nm="lic_search" placeholder="자격증 검색" required readonly >
+        <div>
+            
+            <ul>
+                <li>아주 쉬웠어요</li>
+                <li>쉬웠어요</li>
+                <li>보통이에요</li>
+                <li>어려웠어요</li>
+                <li>매우 어려웠어요</li>
+            </ul>
+            
+            {% for category in category %}
+            {{category.name}}
+            {% endfor %}
+        </div>
+        <input type="hidden" id="review_point" name="review_point">
+        
+        <textarea class="inp" placeholder="내용을 입력하세요" id="review_cont" name="body" required>
+                
+        </textarea>
+        <input type="submit" class="inp btn" value="작성">
+    </form>
+
+    <div class="pop_up" pop_nm="lic_search">
+        <div class="pop_up_h">
+            <a href="#" class="close">x</a> 
+        </div>
+        <div class="pop_up_con">
+            <h2>자격증 종류 검색</h2> 
+            <form action="" method="POST"> 
+                {% csrf_token %} 
+                <input type="text" placeholder="keyword" class="inp inline" name="keyword" required>
+                <input type="submit" value="search" class="inp inline">
+            </form>
+            <div>
+                <ul>
+                    {% for license in license %}
+                    {{license.name}}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+ </section>
+{% endblock %}

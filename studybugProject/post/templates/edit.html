@@ -1,0 +1,62 @@
+{% extends 'layout.html'%}
+{% block layoutblock%}
+
+<script>
+    function point_cnt(){
+
+    }
+
+    function list_select(e){
+        $(".popup_open").val($(e).text());
+        pu_close();
+    }
+     
+</script>
+ <section id="review_new">
+     <form action="" method="POST">
+        {% csrf_token %}
+        <!-- 라이센스 선택 -->
+        {{ form.as_p }}
+        <input type="text" class="inp popup_open" pop_nm="lic_search" placeholder="자격증 검색" required readonly >
+        <div>
+            <!-- 별점 입력 -->
+            <!-- {{form.rate}} -->
+            <script>
+                //임시로 쓴 거 
+                for(i=0;i<7;i++){
+                    document.write(" <li><a href='#' class='cate' onclick='chk_i(this,&#39;active&#39;)'>재무"+i+"</a></li> ");
+                }
+            </script>
+        </div>
+        <input type="hidden" id="review_point" name="review_point">
+        
+        <div class="inp" placeholder="내용을 입력하세요" id="review_cont" name="review_cont" required>
+                <!-- {{form.body}} -->
+        </div>
+        <input type="submit" class="inp btn" value="작성">
+    </form>
+
+    <div class="pop_up" pop_nm="lic_search">
+        <div class="pop_up_h">
+            <a href="#" class="close">x</a> 
+        </div>
+        <div class="pop_up_con">
+            <h2>자격증 종류 검색</h2> 
+            <form action="" method="POST"> 
+                {% csrf_token %} 
+                <input type="text" placeholder="keyword" class="inp inline" name="keyword" required>
+                <input type="submit" value="search" class="inp inline">
+            </form>
+            <div>
+                <ul>
+                    <script>
+                        for(i=0;i<9;i++){
+                        document.write("<li class='list_ center' onclick='list_select(this)'>어쩌구 저쩌구</li>");
+                        }
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </div>
+ </section>
+{% endblock %}
