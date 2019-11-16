@@ -32,7 +32,7 @@
                     $(".float_btn").hide();
             }else{
                 $(".float_btn").click(function(){
-                 location.href="../post/new/";
+                 location.href="/post/new/";
                 });
             }
             
@@ -51,6 +51,22 @@
                 $(".sel_btn>div").text($(this).text());
                 $(".sel_wrap").toggle();
             });
+            $("a[href='#myinfo']").click(function(){
+                var status = $("#slide_menu").css("display");
+                if(status == "none"){
+                    $("#slide_menu").show().animate({
+                        left:"0", 
+                    },1000,function(){
+
+                    });
+                }else{
+                    $("#slide_menu").animate({
+                        left:"1000", 
+                    },1000,function(){
+                        $("#slide_menu").hide();
+                    });  
+                }
+            });
         });
 
        
@@ -61,14 +77,54 @@
     <div class="bg"></div> 
     <header>
         <a href="/main"><img class="center logo" src="/static/img/logo.png"></a>
-        <a href="#" class="left" onclick="_back()" ><img src="/static/img/back.png"></a>
-        <a href="#" class="right"><img src="/static/img/menu.png"></a>
+        <a href="#back" class="left" onclick="_back()" ><img src="/static/img/back.png"></a>
+        <a href="#myinfo" class="right"><img src="/static/img/myinfomenu.png"></a>
     </header>
     {% block layoutblock %}
     {% endblock %}  
     <img class="float_btn" src="/static/img/write.png">
+
+    <div id="slide_menu" class="slide">
+            <h1 class="red">Account</h1>
+            <div class="inline-wrap">
+                <div class="inline">
+                   <img class="user-img" src="/static/img/pro.png">
+                </div>
+                <div class="inline">
+                   <b>이름 </b>
+                   <p>이메일</p>
+                </div>
+            </div>
+            <ul class="center"> 
+                <li class="sm_btn" func="0">
+                    <img class="logo" src="/static/img/9/check.png" alt="">
+                    Change your interest
+                    <ul > 
+                        <li class="tag" onclick="chk_i(this,'tag_active')">경영</li>
+                        <li class="tag" onclick="chk_i(this,'tag_active')">물류</li>
+                        <li class="tag" onclick="chk_i(this,'tag_active')">화학</li> 
+                        <li class="tag" onclick="chk_i(this,'tag_active')">건축</li>
+                        <li class="tag" onclick="chk_i(this,'tag_active')">전기</li>
+                        <li class="tag" onclick="chk_i(this,'tag_active')"> 컴퓨터</li> 
+                    </ul>
+                </li>
+                <li class="sm_btn" func="1">
+                    <img class="logo" src="/static/img/9/check.png" alt="">
+                    Edit my information
+                </li>
+                <li class="sm_btn" func="2">
+                    <img class="logo" src="/static/img/9/check.png" alt="">
+                    Manage my reivew
+                </li>
+                <li class="sm_btn" func="3">
+                    <img class="logo" src="/static/img/9/check.png" alt="">
+                    Widthdraw my account
+                </li>
+            </ul>
+        </div>
     <footer>
         <img class="center bottom" src="/static/img/create.png">
     </footer> 
+ 
 </body>
 </html>

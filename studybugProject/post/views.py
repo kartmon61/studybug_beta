@@ -12,21 +12,25 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def Post(request):
-    posts = Student.objects.all()  
-    category = Category.objects.all()
-    #키워드 검색
-    keyword = request.GET.get('search')
-    if keyword is not None:
-        posts = get_list_or_404(Student,category=keyword)
-
+    category_id = request.GET.get('category')
+    # print("카테고리"+category_id)
+    category = get_list_or_404(Category,code_no=category_id)
+    comm_cnt = []
+    try :
+        posts = get_list_or_404(Student,category=category_id)
+    
     #페이지화
-    paginator = Paginator(posts,5) 
-    page = request.GET.get('page')
-    page_posts = paginator.get_page(page)
+        paginator = Paginator(posts,5) 
+        page = request.GET.get('page')
+        page_posts = paginator.get_page(page)
+        return render(request,'list.html',{'page_posts':page_posts})
+    except :
+        posts = None
+        return render(request,'list.html')
 
-    return render(request,'list.html',{'page_posts':page_posts})
-
-def Mpost(request,category_id):
+def Mpost(request):
+    category_id = request.GET.get('category')
+    print("카테고리"+category_id)
     category = get_list_or_404(Category,code_no=category_id)
     comm_cnt = []
     try :
@@ -34,13 +38,13 @@ def Mpost(request,category_id):
         for i in posts:
             one_post = get_object_or_404(Student,id=i.id)
             comments = one_post.comment_set.all()
-            comm_cnt.append(len(comments)) 
+            comm_cnt.append(len(comments))
 
         #페이지화
         paginator = Paginator(posts,5) 
         page = request.GET.get('page')
         page_posts = paginator.get_page(page)
-        return render(request,'list.html',{'page_posts':page_posts,'comm_cnt':comm_cnt,'cnt':""})
+        return render(request,'list.html',{'page_posts':page_posts,'comm_cnt':comm_cnt})
     except :
         posts = None
         return render(request,'list.html')

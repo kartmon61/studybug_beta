@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% block layoutblock %}
 <section id="detail">
- 
+    
+    <br/>
     <a href="#" class="sel_btn">
         <div>유통관리사</div>
         <img class="right" src="/static/img/selectbutton.png">
@@ -12,7 +13,9 @@
         <li class="sel_li">정보처리기사</li> 
         <li class="sel_li">물류관리사</li> 
     </ul>
+    <br/>
     <div class="btn center">Save Filter</div>
+    <br/>
 
     <article>  
             <input type="hidden" value="{{comm_cnt}}" id="comm_cnt"> 
@@ -21,18 +24,19 @@
                 <div>
                     <img src="/static/img/pro.png" class="user-img"> 
                         <div>
-                            <input type="hidden" class="rate" value="{{posts.rate}}" no="{{r.id}}"> <!--별점 갯수 적어놨다가 자바스크립트로 처리-->
+                            <input type="hidden" class="rate" value="{{posts.rate}}" no="{{posts.id}}"> <!--별점 갯수 적어놨다가 자바스크립트로 처리-->
                         </div>
-                        <h3>{{r.author}}</h3>
+                        <h3>{{posts.author}}</h3>
                         <p class="right red status" no="{{posts.id}}"></p>
-                        <h1>{{r.license_on.name}}</h1>
+                        <h1>{{posts.license_on.name}}</h1>
                         <p class="small"><img class="icon left" src="/static/img/calender.png">{{posts.created_at| date:"Y-m-d-f" }} </p>
                         <div class='review'>{{posts.body}}</div>
                          
-                         
+                         <!--
                         <div class="r_btn" no="  {{forloop.counter}}  "> 
                                 답글     {{forloop.counter}}
-                        </div>           
+                        </div>  
+                        -->         
                       
                         </div>
                         </li> 
@@ -88,14 +92,12 @@
                 class="input_"></textarea>
             </li>
             <li>
-                <input type="submit" class="red" value="confirm">
+                <input type="submit" class="red right" value="confirm">
             </li>
             <li>
                 <input type="hidden" value="{{user.username}}" name="comm_nm">
             </li>
         </ul>  
     </form> 
-    <a href="/post/">돌아가기
-
 </section>
 {% endblock %}

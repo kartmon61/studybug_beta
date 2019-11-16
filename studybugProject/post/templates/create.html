@@ -1,11 +1,12 @@
 {% extends 'layout.html'%}
 {% block layoutblock%}
-
-<script>
-    function point_cnt(){
-
+<style>
+    body{
+          background-color: #F0F0F0;
     }
-
+</style>
+<script>
+ 
     function list_select(e){
         $(".popup_open").val($(e).text());
         pu_close();
@@ -13,31 +14,41 @@
      
 </script>
  <section id="review_new">
+     <h1 class="red">REVIEW YOUR EXAM</h1>
+     <br/>
+     <a href="#" class="sel_btn">
+         <div>유통관리사</div>
+         <img class="right" src="/static/img/selectbutton.png">
+     </a>
+     <ul class="sel_wrap">
+        {% for category in category %}
+        <li class="sel_li">{{category.name}}</li>
+        {% endfor %} 
+     </ul>  
+    
      <form action="" method="POST">
-        {% csrf_token %}
-        <!-- 라이센스 선택 -->
+        {% csrf_token %} 
         
-        <input type="text" class="inp popup_open" pop_nm="lic_search" placeholder="자격증 검색" required readonly >
+        <!-- <input type="text" class="inp popup_open" pop_nm="lic_search" placeholder="자격증 검색" required readonly >-->
         <div>
-            
-            <ul>
-                <li>아주 쉬웠어요</li>
-                <li>쉬웠어요</li>
-                <li>보통이에요</li>
-                <li>어려웠어요</li>
-                <li>매우 어려웠어요</li>
+            <div>
+                <img src="/static/img/8/tagicon.png" class="icon">
+                <h1 class="red">DIFFICULTY</h1>
+             </div>
+            <ul > 
+                <li class="tag" onclick="cchk_i(this,'tag_active')">쉬워요</li>
+                <li class="tag" onclick="cchk_i(this,'tag_active')">보통이에요</li>
+                <li class="tag" onclick="cchk_i(this,'tag_active')"> 어려웠어요</li> 
             </ul>
             
-            {% for category in category %}
-            {{category.name}}
-            {% endfor %}
+            
         </div>
         <input type="hidden" id="review_point" name="review_point">
         
         <textarea class="inp" placeholder="내용을 입력하세요" id="review_cont" name="body" required>
                 
         </textarea>
-        <input type="submit" class="inp btn" value="작성">
+        <input type="submit" id="r_submit" class="inp" value="">
     </form>
 
     <div class="pop_up" pop_nm="lic_search">

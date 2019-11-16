@@ -88,6 +88,7 @@ footer img{
   }
 }
 
+ 
 .cate{
   display: inline-block;
   color:#2F2F2F;
@@ -513,8 +514,8 @@ footer img{
   }
 /*************************************************************/
 #review_new{
-  margin-top: 50px;
-}
+  margin-top: 50px; 
+}  
 
 #review_new div{
   margin-left:4%;
@@ -522,11 +523,7 @@ footer img{
  
 #review_new input[type='text']{
   width:90%;
-}
-#review_cont{
-  width:90%;
-  margin:auto;
-}
+} 
 #review_new li{
   display: inline-block;
 }
@@ -546,6 +543,30 @@ footer img{
   width:90%;
   height: 200px;
   overflow-y: auto;
+}
+#review_new textarea{
+  width:90%;
+  margin:auto;
+  margin-top: 30px;
+  height: 150px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.096);
+}
+#review_new div .red, #review_new div .icon{
+  display: inline;
+}
+#r_submit{
+  background-image: url("/static/img/8/writedone.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width:50%;  
+  margin:30px auto 30px auto;
+  padding: 30px;  
+  background-color: #ffffff00;
+}
+div .icon{
+  width:20%; 
+  position: relative;
+  top:15px;
 }
 .list_{ 
   width:90%; 
@@ -569,7 +590,48 @@ footer img{
   width:80%;
   margin:10px auto;
 }
- 
+#slide_menu{
+  width:100%; 
+  position: absolute;
+  top:10%;
+  left:500px;
+  padding-top:15px;
+  background-color: #F0F0F0;
+  z-index: 100000000000000; 
+  padding-bottom: 300px;
+  display: none;
+}
+#slide_menu h1{
+  border-bottom: 1px solid #FA5A5A;  
+  width:95%;
+  margin:auto;
+}
+#slide_menu  ul{
+  width:90%;
+}
+.inline-wrap{ 
+  display:grid;
+  grid-template-columns: 1fr 2fr; 
+  width:100%;
+
+}
+.inline {  
+  padding:30px 10px; 
+}
+#slide_menu .inline img {  
+  display: block;
+  width:40%;
+  margin-left: -15px;
+  margin-top:-45px;
+}
+#slide_menu .logo{
+  width:12%;  
+  position: relative;
+  top:15px;
+}
+#slide_menu li{
+  font-weight: 900;
+}
 .comment ul{
   width:100%;
   display: block;
@@ -609,23 +671,45 @@ footer img{
   display: block;
   width:80%;
   margin:auto;
+  margin-top:30px; 
   padding-bottom:100px;
 }
 .comm_write li{ 
   display: inline;
 }
 .comm_write textarea{
-  width:60%;
-  height:40px;
+  width:65%;
+  height:40px;  
+  margin:auto;
+  margin-left: -3px;
 }
+
 .comm_write .red{
   border:0px;  
   height:70px;
   padding:0px 15px; 
   background-color: #ffffff;
   display: block;
-  margin-top:-73px;
-} 
+  margin-top:-70px;
+}   
+.tag{
+  display: inline-block;
+  text-align: center;
+  font-size: 0.7em;
+  width:25%;
+  margin-top:15px;
+  padding:15px 10px 10px 10px;
+  color: #FA5A5A;
+  border-radius:30px;
+  background-color: #ffffff;
+  box-shadow: 2px 2px rgba(119, 118, 118, 0.24);
+}
+.tag_active,.tag:active{
+  background-color: #FA5A5A;
+  color: #ffffff;
+
+}
+ 
   /**************************************************************/
   @media (max-width: 610px) {
     section{
@@ -675,7 +759,8 @@ footer img{
       margin-left:-13%; 
     } 
     header .right{ 
-      margin-right:-15%; 
+      margin-right:-5%; 
+      margin-top:-11%;
        
     }
     header img{
@@ -706,13 +791,14 @@ footer img{
       color:#ffffff;
       position: fixed;
       bottom:5%;
-      right:5px;
+      right:0px;
       z-index: 10000;
     }
     .reviewList{  
       display: block;
       width:65%;   
       margin: auto; 
+      margin-top:10px;
       margin-bottom: 15px;
       padding:15px 20px;
       background: rgb(245, 245, 245);
@@ -723,6 +809,9 @@ footer img{
       background-size: cover;
       */
     }
+    .sel_btn{
+      width:80%;
+    }
     .sel_btn img{
       width:15%; 
       display: block; 
@@ -730,17 +819,20 @@ footer img{
       margin-right:-10px;
     }
     .sel_wrap{
-      width:85%;
+      width:81%;
       max-height: 600px;
       overflow-x: hidden;
       overflow-y: auto;
       margin:auto;
-      margin-top:1px;
+      margin-top:1px; 
       display: none;
       background-color:#ffffff; 
       box-shadow: 1px 2px rgba(222, 224, 222, 0.856);
       z-index: 100000;
       position: absolute;
-      left:7.5%;
+      left:10%;
+    }
+    #r_submit{
+      padding: 10px; 
     }
   }  
